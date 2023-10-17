@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bm1cfwvflyw6h"]
+[gd_scene load_steps=11 format=3 uid="uid://bm1cfwvflyw6h"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_kgfyq"]
 [ext_resource type="PackedScene" uid="uid://dwr2kbh4xjrtb" path="res://M4A1-S_Printstream/M4A1-S_Printstream.glb" id="2_jod6y"]
+[ext_resource type="Texture2D" uid="uid://b4u6hiud12d2b" path="res://lukky_handpainted_textures_1.3/hand_painted_grass.png" id="3_ffivo"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1oqxb"]
 
@@ -105,11 +106,12 @@ _data = {
 "shoot": SubResource("Animation_v6jk1")
 }
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head", "animation")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head", "animation", "rayCast")]
 collision_mask = 6
 script = ExtResource("1_kgfyq")
 head = NodePath("Head")
 animation = NodePath("AnimationPlayer")
+rayCast = NodePath("Head/Camera3D/RayCast3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -127,6 +129,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="M4A1-S_Printstream" parent="Head/Camera3D" instance=ExtResource("2_jod6y")]
 transform = Transform3D(-0.025, 1.10613e-09, -6.33699e-08, 0, 0.0249962, 0.00043631, 6.33795e-08, 0.00043631, -0.0249962, 0.05, -0.05, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -100)
+collision_mask = 2
+
+[node name="TextureRect" type="TextureRect" parent="Head/Camera3D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.02, 0.02)
+pivot_offset = Vector2(960, 540)
+texture = ExtResource("3_ffivo")
+stretch_mode = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_default_blend_time = 0.05

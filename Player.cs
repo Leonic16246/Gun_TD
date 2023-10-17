@@ -10,7 +10,9 @@ public partial class Player : CharacterBody3D
 	public float sensitivity = 0.1f;
 	[Export] private Node3D head;
 	[Export] private AnimationPlayer animation;
+	[Export] private RayCast3D rayCast;
 
+	private int health = 100;
 	private Game game;
 
 	
@@ -40,7 +42,11 @@ public partial class Player : CharacterBody3D
 			}
 			if (Input.IsActionJustPressed("shoot"))
 			{
-				
+				if (rayCast.IsColliding())
+				{
+					var hit_enemy = rayCast.GetCollider();
+					hit_enemy.RecieveDamage();
+				}
 				animation.Stop(); 
 				animation.Play("shoot");
 			}

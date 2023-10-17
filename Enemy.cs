@@ -3,11 +3,22 @@ using System;
 
 public partial class Enemy : CharacterBody3D
 {
-	public const float Speed = 5.0f;
+	public const float Speed = 1.0f;
 	public const float JumpVelocity = 4.5f;
+	public int health = 100;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+
+	public void RecieveDamage()
+	{
+		health -= 100;
+		GD.Print(health);
+		if (health <= 0)
+		{
+			QueueFree();
+		}
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
