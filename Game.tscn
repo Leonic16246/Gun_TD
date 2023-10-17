@@ -18,16 +18,17 @@ glow_enabled = true
 
 [sub_resource type="Curve3D" id="Curve3D_8ebld"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 10, 0, 10),
-"tilts": PackedFloat32Array(0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 10, 0, 10, 0, 0, 0, 0, 0, 0, -10, 0, -10, 0, 0, 0, 0, 0, 0, 10, 0, -10, 0, 0, 0, 0, 0, 0, -10, 0, 10),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
 }
-point_count = 1
+point_count = 4
 
-[node name="Game" type="Node3D" node_paths=PackedStringArray("gameMenu")]
+[node name="Game" type="Node3D" node_paths=PackedStringArray("gameMenu", "spawnLocation")]
 script = ExtResource("1_f72t6")
 gameMenu = NodePath("Menus/GameMenu")
 playerScene = ExtResource("1_5gu8m")
 enemyScene = ExtResource("3_7gq2p")
+spawnLocation = NodePath("Path3D/PathFollow3D")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nl3fn")
@@ -39,6 +40,8 @@ shadow_enabled = true
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
+collision_layer = 4
+collision_mask = 0
 size = Vector3(20, 1, 20)
 
 [node name="crate" parent="." instance=ExtResource("2_of3ku")]
@@ -91,12 +94,14 @@ layout_mode = 2
 text = "Main Menu"
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
 autostart = true
 
 [node name="Path3D" type="Path3D" parent="."]
 curve = SubResource("Curve3D_8ebld")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 10, 0, 10)
 
 [connection signal="pressed" from="Menus/GameMenu/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="Menus/GameMenu/MarginContainer/VBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]

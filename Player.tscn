@@ -106,6 +106,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head", "animation")]
+collision_mask = 6
 script = ExtResource("1_kgfyq")
 head = NodePath("Head")
 animation = NodePath("AnimationPlayer")
