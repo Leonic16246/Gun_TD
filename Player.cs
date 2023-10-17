@@ -44,10 +44,10 @@ public partial class Player : CharacterBody3D
 			{
 				if (rayCast.IsColliding())
 				{
-					var hit_enemy = rayCast.GetCollider();
+					Enemy hit_enemy = (Enemy)rayCast.GetCollider();
 					hit_enemy.RecieveDamage();
 				}
-				animation.Stop(); 
+				animation.Stop();
 				animation.Play("shoot");
 			}
 		}
