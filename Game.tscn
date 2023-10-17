@@ -93,15 +93,15 @@ text = "Settings"
 layout_mode = 2
 text = "Main Menu"
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
-autostart = true
-
 [node name="Path3D" type="Path3D" parent="."]
 curve = SubResource("Curve3D_8ebld")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 10, 0, 10)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
 
 [connection signal="pressed" from="Menus/GameMenu/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="Menus/GameMenu/MarginContainer/VBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
