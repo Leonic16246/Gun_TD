@@ -5,8 +5,8 @@ public partial class Game : Node3D
 {
 	[Export] private PanelContainer gameMenu;
 	[Export] public PackedScene playerScene;
-	[Export] public PackedScene enemyScene { get; set; }
-
+	[Export] public PackedScene enemy1Scene { get; set; }
+	[Export] public PackedScene enemy2Scene { get; set; }
 	[Export] public PathFollow3D spawnLocation;
 	public bool gameMenuUp = false;
 
@@ -62,20 +62,25 @@ public partial class Game : Node3D
 	public void _on_timer_timeout()
 	{
 		// Create a new instance of the Mob scene.
-		Enemy enemy = enemyScene.Instantiate<Enemy>();
-
+		Enemy enemy1 = enemy1Scene.Instantiate<Enemy>();
+		Enemy enemy2 = enemy2Scene.Instantiate<Enemy>();
 		// Choose a random location on the SpawnPath.
 		// We store the reference to the SpawnLocation node.
 
+		Vector3 playerPosition = GetNode<Player>("Player").Position;
 		// And give it a random offset.
 		spawnLocation.ProgressRatio = GD.Randf();
+		enemy1.Initialize(spawnLocation.Position, playerPosition);
 
-		Vector3 playerPosition = GetNode<Player>("Player").Position;
-		enemy.Initialize(spawnLocation.Position, playerPosition);
+		
+		enemy2.Initialize(spawnLocation.Position, playerPosition);
 
 		// Spawn the mob by adding it to the Main scene.
-		AddChild(enemy);
+		AddChild(enemy1);
 		GD.Print("enemy spawned");
+
+		AddChild(enemy2);
+		GD.Print("minion spawned");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

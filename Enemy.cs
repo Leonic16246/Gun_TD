@@ -3,9 +3,9 @@ using System;
 
 public partial class Enemy : CharacterBody3D
 {
-	public const float Speed = 1.0f;
-	public const float JumpVelocity = 4.5f;
-	public int health = 100;
+	[Export] public float speed = 1.0f;
+	[Export] public float jumpVelocity = 5f;
+	[Export] public int health;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();

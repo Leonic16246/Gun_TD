@@ -3,7 +3,7 @@ using System;
 
 public partial class Minion : CharacterBody3D
 {
-	
+	Enemy enemy = new Enemy();
 
 	public const float Speed = 5.0f;
 	public const float JumpVelocity = 4.5f;
@@ -24,4 +24,15 @@ public partial class Minion : CharacterBody3D
 		Velocity = velocity;
 		MoveAndSlide();
 	}
+
+	public void Initialize(Vector3 startPosition, Vector3 playerPosition)
+	{
+		// We position the mob by placing it at startPosition
+		// and rotate it towards playerPosition, so it looks at the player.
+		LookAtFromPosition(startPosition, playerPosition, Vector3.Up);
+		// Rotate this mob randomly within range of -45 and +45 degrees,
+		// so that it doesn't move directly towards the player.
+		RotateY((float)GD.RandRange(-Mathf.Pi / 4.0, Mathf.Pi / 4.0));
+	}
 }
+

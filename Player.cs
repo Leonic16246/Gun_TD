@@ -28,7 +28,6 @@ public partial class Player : CharacterBody3D
 
 	public override void _Input(InputEvent @event)
 	{
-		GD.Print(game.gameMenuUp);
 
 		if (!game.gameMenuUp)
 		{

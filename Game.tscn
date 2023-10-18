@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dbxdma3hbopkd"]
+[gd_scene load_steps=11 format=3 uid="uid://dbxdma3hbopkd"]
 
 [ext_resource type="PackedScene" uid="uid://bm1cfwvflyw6h" path="res://Player.tscn" id="1_5gu8m"]
 [ext_resource type="Script" path="res://Game.cs" id="1_f72t6"]
 [ext_resource type="PackedScene" uid="uid://bipspele4sypj" path="res://lukkys_props/props/containers/crate.glb" id="2_of3ku"]
-[ext_resource type="PackedScene" uid="uid://cdbwux1e4xso8" path="res://Enemy.tscn" id="3_7gq2p"]
+[ext_resource type="PackedScene" uid="uid://cdbwux1e4xso8" path="res://Enemy1.tscn" id="3_8fc48"]
+[ext_resource type="PackedScene" uid="uid://jr01dwqjytsa" path="res://Enemy2.tscn" id="4_fm02j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0sbuv"]
 
@@ -30,7 +31,8 @@ point_count = 4
 script = ExtResource("1_f72t6")
 gameMenu = NodePath("Menus/GameMenu")
 playerScene = ExtResource("1_5gu8m")
-enemyScene = ExtResource("3_7gq2p")
+enemy1Scene = ExtResource("3_8fc48")
+enemy2Scene = ExtResource("4_fm02j")
 spawnLocation = NodePath("Path3D/PathFollow3D")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
