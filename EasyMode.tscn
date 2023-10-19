@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://0be42cb03ihl"]
+
+[ext_resource type="Script" path="res://Difficulty.cs" id="1_eyf5t"]
+[ext_resource type="PackedScene" uid="uid://cdbwux1e4xso8" path="res://Enemy1.tscn" id="2_0mubw"]
+[ext_resource type="PackedScene" uid="uid://jr01dwqjytsa" path="res://Enemy2.tscn" id="3_1nmu6"]
+
+[node name="EasyMode" type="Node3D"]
+script = ExtResource("1_eyf5t")
+enemy1Scene = ExtResource("2_0mubw")
+enemy2Scene = ExtResource("3_1nmu6")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

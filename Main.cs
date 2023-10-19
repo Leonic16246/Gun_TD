@@ -5,12 +5,19 @@ public partial class Main : Node3D
 {
 	[Export] private PanelContainer mainMenu;
 	[Export] private PanelContainer MapMenu;
+	[Export] private PackedScene map1Scene;
+	[Export] private PackedScene map2Scene;
 
+	[Export] private PackedScene easyScene;
 	private bool mainMenuUp = true;
+
+	Game game;
+	Map map;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		game = (Game)GetParent();
 	}
 
 	public void _on_new_button_pressed()
@@ -22,16 +29,17 @@ public partial class Main : Node3D
 	}
 	public void _on_map_1_button_pressed()
 	{
-		GetTree().ChangeSceneToFile("res://Game.tscn");
+		game.InitializeGame(map1Scene, easyScene);
+		QueueFree();
 	}
 	public void _on_map_2_button_pressed()
 	{
-		GetTree().ChangeSceneToFile("res://Game.tscn");
+		game.InitializeGame(map2Scene, easyScene);
+		QueueFree();
 	}
 	public void _on_back_button_pressed()
 	{
 		MapMenu.Hide();
-
 		mainMenu.Show();
 		mainMenuUp = true;
 	}

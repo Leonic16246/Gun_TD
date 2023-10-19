@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://bkdh42nwxsmfo"]
+
+[ext_resource type="Script" path="res://Map.cs" id="1_ykldc"]
+[ext_resource type="PackedScene" uid="uid://bipspele4sypj" path="res://lukkys_props/props/containers/crate.glb" id="2_oneho"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i3xef"]
+
+[sub_resource type="Sky" id="Sky_msebw"]
+sky_material = SubResource("ProceduralSkyMaterial_i3xef")
+
+[sub_resource type="Environment" id="Environment_cpcpx"]
+background_mode = 2
+sky = SubResource("Sky_msebw")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8bniq"]
+
+[sub_resource type="Curve3D" id="Curve3D_i6h24"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 10, 0, 10, 0, 0, 0, 0, 0, 0, -10, 0, -10, 0, 0, 0, 0, 0, 0, 10, 0, -10, 0, 0, 0, 0, 0, 0, -10, 0, 10),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[node name="Map2" type="Node3D" node_paths=PackedStringArray("pathFollow")]
+script = ExtResource("1_ykldc")
+pathFollow = NodePath("Path3D/PathFollow3D")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cpcpx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+collision_layer = 4
+collision_mask = 0
+size = Vector3(20, 1, 20)
+
+[node name="crate" parent="." instance=ExtResource("2_oneho")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="crate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="crate/StaticBody3D"]
+shape = SubResource("BoxShape3D_8bniq")
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_i6h24")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 10, 0, 10)
