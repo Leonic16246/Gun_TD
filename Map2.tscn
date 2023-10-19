@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bkdh42nwxsmfo"]
+[gd_scene load_steps=8 format=3 uid="uid://ch704pbqcmrpf"]
 
 [ext_resource type="Script" path="res://Map.cs" id="1_ykldc"]
 [ext_resource type="PackedScene" uid="uid://bipspele4sypj" path="res://lukkys_props/props/containers/crate.glb" id="2_oneho"]
@@ -46,6 +46,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="crate"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="crate/StaticBody3D"]
 shape = SubResource("BoxShape3D_8bniq")
