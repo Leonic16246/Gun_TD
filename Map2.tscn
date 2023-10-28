@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ch704pbqcmrpf"]
+[gd_scene load_steps=8 format=3 uid="uid://2187tabkx7ep"]
 
 [ext_resource type="Script" path="res://Map.cs" id="1_ykldc"]
 [ext_resource type="PackedScene" uid="uid://bipspele4sypj" path="res://lukkys_props/props/containers/crate.glb" id="2_oneho"]

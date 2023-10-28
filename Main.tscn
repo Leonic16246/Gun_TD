@@ -1,16 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwu3slcrlxmvk"]
+[gd_scene load_steps=3 format=3 uid="uid://dwu3slcrlxmvk"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_5730a"]
-[ext_resource type="PackedScene" path="res://Map1.tscn" id="2_7dmxs"]
-[ext_resource type="PackedScene" uid="uid://ch704pbqcmrpf" path="res://Map2.tscn" id="3_kdghn"]
-[ext_resource type="PackedScene" path="res://EasyMode.tscn" id="4_0410l"]
+[ext_resource type="PackedScene" uid="uid://0be42cb03ihl" path="res://EasyMode.tscn" id="4_0410l"]
 
 [node name="Main" type="Node3D" node_paths=PackedStringArray("mainMenu", "MapMenu")]
 script = ExtResource("1_5730a")
 mainMenu = NodePath("Menus/MainMenu")
 MapMenu = NodePath("Menus/MapMenu")
-map1Scene = ExtResource("2_7dmxs")
-map2Scene = ExtResource("3_kdghn")
 easyScene = ExtResource("4_0410l")
 
 [node name="Menus" type="CanvasLayer" parent="."]

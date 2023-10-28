@@ -5,11 +5,10 @@ public partial class Main : Node3D
 {
 	[Export] private PanelContainer mainMenu;
 	[Export] private PanelContainer MapMenu;
-	[Export] private PackedScene map1Scene;
-	[Export] private PackedScene map2Scene;
 
 	[Export] private PackedScene easyScene;
 	private bool mainMenuUp = true;
+	private bool mapSelected = false;
 
 	Game game;
 	Map map;
@@ -27,14 +26,16 @@ public partial class Main : Node3D
 		MapMenu.Show();
 		
 	}
+
+	// have difficulty selection, confirm button, pressed buttons highlighted
 	public void _on_map_1_button_pressed()
 	{
-		game.InitializeGame(map1Scene, easyScene);
+		game.InitializeGame("res://Map1.tscn", easyScene);
 		QueueFree();
 	}
 	public void _on_map_2_button_pressed()
 	{
-		game.InitializeGame(map2Scene, easyScene);
+		game.InitializeGame("res://Map2.tscn", easyScene);
 		QueueFree();
 	}
 	public void _on_back_button_pressed()

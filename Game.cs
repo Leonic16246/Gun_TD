@@ -40,7 +40,7 @@ public partial class Game : Node3D
 		StartGame();
 	}
 
-	public void InitializeGame(PackedScene mapScene, PackedScene difficultyScene)
+	public void InitializeGame(String mapString, PackedScene difficultyScene)
 	{
 		// pause
 		if (pauseScene != null)
@@ -52,6 +52,7 @@ public partial class Game : Node3D
 			GD.Print("error pause menu");
 		}
 
+		PackedScene mapScene = ResourceLoader.Load<PackedScene>(mapString);
 		// map
 		if (mapScene != null)
 		{
