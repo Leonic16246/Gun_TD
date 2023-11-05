@@ -30,7 +30,7 @@ public partial class Difficulty : Node3D
 
 		Vector3 playerPosition = GetParent().GetNode<Player>("Player").Position;
 		// And give it a random offset.
-		spawnLocation.ProgressRatio = GD.Randf();
+		//spawnLocation.ProgressRatio = GD.Randf();
 		enemy1.Initialize(spawnLocation.Position, playerPosition);
 
 		

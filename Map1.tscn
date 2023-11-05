@@ -13,12 +13,12 @@ sky = SubResource("Sky_msebw")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="Curve3D" id="Curve3D_i6h24"]
+[sub_resource type="Curve3D" id="Curve3D_ca2nq"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 10, 0, 10, 0, 0, 0, 0, 0, 0, -10, 0, -10, 0, 0, 0, 0, 0, 0, 10, 0, -10, 0, 0, 0, 0, 0, 0, -10, 0, 10),
-"tilts": PackedFloat32Array(0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, -45, 0, 0, 0, 0, 0, 0, 0, 0, 45),
+"tilts": PackedFloat32Array(0, 0)
 }
-point_count = 4
+point_count = 2
 
 [node name="Map1" type="Node3D" node_paths=PackedStringArray("pathFollow")]
 script = ExtResource("1_eq7eb")
@@ -31,15 +31,39 @@ environment = SubResource("Environment_cpcpx")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="NorthWall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -50)
+use_collision = true
+collision_layer = 4
+size = Vector3(100, 2, 0)
+
+[node name="SouthWall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 50)
+use_collision = true
+collision_layer = 4
+size = Vector3(100, 2, 0)
+
+[node name="WestWall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 1, 0)
+use_collision = true
+collision_layer = 4
+size = Vector3(0, 2, 100)
+
+[node name="EastWall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 1, 0)
+use_collision = true
+collision_layer = 4
+size = Vector3(0, 2, 100)
+
+[node name="Floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 collision_layer = 4
 collision_mask = 0
-size = Vector3(20, 1, 20)
+size = Vector3(100, 1, 100)
 
 [node name="Path3D" type="Path3D" parent="."]
-curve = SubResource("Curve3D_i6h24")
+curve = SubResource("Curve3D_ca2nq")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 10, 0, 10)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -45)
