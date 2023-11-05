@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6640adibvx51"]
+
+[ext_resource type="Script" path="res://Pause.cs" id="1_ynf8m"]
+
+[node name="Pause" type="Node3D" node_paths=PackedStringArray("pauseMenu")]
+visible = false
+script = ExtResource("1_ynf8m")
+pauseMenu = NodePath("Menu/PauseMenu")
+
+[node name="Menu" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" type="PanelContainer" parent="Menu"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 757.0
+offset_top = 365.0
+offset_right = -757.0
+offset_bottom = -365.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/PauseMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/PauseMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="Menu/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Paused?"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Menu/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="LoadButton" type="Button" parent="Menu/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Load Game"
+
+[node name="SettingsButton" type="Button" parent="Menu/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="MainMenuButton" type="Button" parent="Menu/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[connection signal="pressed" from="Menu/PauseMenu/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Menu/PauseMenu/MarginContainer/VBoxContainer/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="Menu/PauseMenu/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Menu/PauseMenu/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

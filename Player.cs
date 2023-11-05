@@ -13,7 +13,7 @@ public partial class Player : CharacterBody3D
 	[Export] private RayCast3D rayCast;
 
 	private int health = 100;
-	private Game game;
+	private Pause pause;
 
 	
 
@@ -22,14 +22,21 @@ public partial class Player : CharacterBody3D
 
 	public override void _Ready() {
         Godot.Input.MouseMode = Godot.Input.MouseModeEnum.Captured;
-		game = (Game)GetParent();
+		pause = (Pause)GetParent().GetNode("Pause");
+		if (pause != null)
+		{
+			GD.Print("pause loaded to player");
+		} else
+		{
+			GD.Print("error pause load to player");
+		}
 		
 	}
 
 	public override void _Input(InputEvent @event)
 	{
 
-		if (!game.gameMenuUp)
+		if (!pause.pauseMenuUp)
 		{
 			if (@event is InputEventMouseMotion mouseMotion)
 			{
@@ -74,7 +81,7 @@ public partial class Player : CharacterBody3D
 			velocity.Y = JumpVelocity;
 
         // Get the input direction and handle the movement/deceleration.
-        // As good practice, you should replace UI actions with custom gameplay actions.
+        // As good practice, you should replace UI actions with custom pauseplay actions.
         Vector2 inputDir = Godot.Input.GetVector("move_left", "move_right", "move_forward", "move_back");
 		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		if (direction != Vector3.Zero)

@@ -3,84 +3,90 @@ using System;
 
 public partial class Game : Node3D
 {
-	[Export] private PanelContainer gameMenu;
+	[Export] public PackedScene mainScene;
+	[Export] public PackedScene pauseScene;
 	[Export] public PackedScene playerScene;
-	[Export] public PackedScene enemy1Scene { get; set; }
-	[Export] public PackedScene enemy2Scene { get; set; }
-	[Export] public PathFollow3D spawnLocation;
-	public bool gameMenuUp = false;
 
-
-	public bool getMainMenuUp()
-	{
-		return gameMenuUp;//
-	}
+	Map map;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		StartGame();
+	}
+
+	public void StartGame()
+	{
+		if (mainScene != null)
+		{
+			Main main = mainScene.Instantiate<Main>();
+			AddChild(main);
+			GD.Print("main menu");
+		} else
+		{
+			GD.Print("error loading main menu");
+		}
+	}
+
+	public void backToStart()
+	{
+		if (GetChildCount() > 0)
+		{
+			foreach (var n in GetChildren())
+			{
+				RemoveChild(n);
+			}
+		}
+		StartGame();
+	}
+
+	public void InitializeGame(String mapString, PackedScene difficultyScene)
+	{
+		// pause
+		if (pauseScene != null)
+		{
+			Pause pause = pauseScene.Instantiate<Pause>();
+			AddChild(pause);
+		} else
+		{
+			GD.Print("error pause menu");
+		}
+
+		PackedScene mapScene = ResourceLoader.Load<PackedScene>(mapString);
+		// map
+		if (mapScene != null)
+		{
+			map = mapScene.Instantiate<Map>();
+			AddChild(map);
+			GD.Print("map:" + map + " loaded");
+		} else
+		{
+			GD.Print("error loading map");
+		}
+
+		// spawn/difficulty
+		if (mapScene != null)
+		{
+			
+			Difficulty mode = difficultyScene.Instantiate<Difficulty>();
+			mode.GetSpawnLocation(map.pathFollow);
+			AddChild(mode);
+			GD.Print("found mode");
+		} else
+		{
+			GD.Print("error finding spawn/mode");
+		}
+	
 		// adding player
 		if (playerScene != null)
 		{
 			Player player = playerScene.Instantiate<Player>();
 			AddChild(player);
-			GD.Print("new game");
+			GD.Print("player loaded");
 		} else
 		{
 			GD.Print("error loading player scene");
 		}
-
-		// spawning enemy
-		// Node enemyInstance = enemyScene.Instantiate();
-		// AddChild(enemyInstance);
-		// GD.Print("enemy spawned");
-	}
-
-	public void _on_resume_button_pressed()
-	{
-		gameMenu.Hide();
-		//GetTree().Paused = false;
-		Godot.Input.MouseMode = Godot.Input.MouseModeEnum.Captured;
-		gameMenuUp = false;
-	}
-
-	public void _on_load_button_pressed()
-	{
-		
-	}
-
-	public void _on_settings_button_pressed()
-	{
-		
-	}
-
-	public void _on_main_menu_button_pressed()
-	{
-		GetTree().ChangeSceneToFile("res://Main.tscn");
-	}
-
-	public void _on_timer_timeout()
-	{
-		// Create a new instance of the Mob scene.
-		Enemy enemy1 = enemy1Scene.Instantiate<Enemy>();
-		Enemy enemy2 = enemy2Scene.Instantiate<Enemy>();
-		// Choose a random location on the SpawnPath.
-		// We store the reference to the SpawnLocation node.
-
-		Vector3 playerPosition = GetNode<Player>("Player").Position;
-		// And give it a random offset.
-		spawnLocation.ProgressRatio = GD.Randf();
-		enemy1.Initialize(spawnLocation.Position, playerPosition);
-
-		
-		enemy2.Initialize(spawnLocation.Position, playerPosition);
-
-		// Spawn the mob by adding it to the Main scene.
-		AddChild(enemy1);
-		GD.Print("enemy spawned");
-
-		AddChild(enemy2);
-		GD.Print("minion spawned");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -88,27 +94,5 @@ public partial class Game : Node3D
 	{
 
 	}
-
-    public override void _Input(InputEvent @event)
-    {
-        if (Input.IsActionJustPressed("esc"))
-		{
-			if (gameMenuUp)
-			{
-				gameMenu.Hide();
-				//GetTree().Paused = false;
-				Godot.Input.MouseMode = Godot.Input.MouseModeEnum.Captured;
-				gameMenuUp = false;
-			} else
-			{
-				gameMenu.Show();
-				//GetTree().Paused = true;
-				Godot.Input.MouseMode = Godot.Input.MouseModeEnum.Visible;
-				gameMenuUp = true;
-				//GetNode<Player>("Player");
-			}
-			
-		}
-    }
 
 }
